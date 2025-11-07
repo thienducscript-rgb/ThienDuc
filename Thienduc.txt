@@ -1,0 +1,192 @@
+-- LocalScript: ThienDucHub (đặt vào StarterPlayer > StarterPlayerScripts)
+-- Mục đích: mẫu menu tiếng Việt "ThienDucHub by ThienDuc" (không dùng để gian lận game khác)
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- TÙY CHỈNH GIAO DIỆN
+local WINDOW_NAME = "ThienDucHub"
+local AUTHOR = "by ThienDuc"
+local THEME_COLOR = Color3.fromRGB(255, 209, 102) -- màu banana
+local ACCENT = Color3.fromRGB(255, 170, 0)
+local TEXT_COLOR = Color3.fromRGB(35, 35, 35)
+
+-- Tạo ScreenGui nếu chưa có
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "ThienDucHubGui"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
+
+-- Main frame
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "Main"
+mainFrame.Size = UDim2.new(0, 380, 0, 240)
+mainFrame.Position = UDim2.new(0, 20, 0, 80)
+mainFrame.BackgroundColor3 = THEME_COLOR
+mainFrame.BorderSizePixel = 0
+mainFrame.AnchorPoint = Vector2.new(0,0)
+mainFrame.Parent = screenGui
+mainFrame.Visible = true
+
+-- Header
+local header = Instance.new("Frame")
+header.Size = UDim2.new(1, 0, 0, 48)
+header.BackgroundColor3 = ACCENT
+header.BorderSizePixel = 0
+header.Parent = mainFrame
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(0.7, -10, 1, 0)
+title.Position = UDim2.new(0, 8, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = WINDOW_NAME .. " " .. AUTHOR
+title.TextColor3 = TEXT_COLOR
+title.TextScaled = true
+title.Font = Enum.Font.GothamBold
+title.Parent = header
+
+local closeBtn = Instance.new("TextButton")
+closeBtn.Size = UDim2.new(0.28, -12, 0.7, 0)
+closeBtn.Position = UDim2.new(0.72, 8, 0.15, 0)
+closeBtn.BackgroundColor3 = Color3.fromRGB(240, 100, 40)
+closeBtn.Text = "Đóng"
+closeBtn.TextColor3 = Color3.fromRGB(255,255,255)
+closeBtn.Font = Enum.Font.GothamSemibold
+closeBtn.TextScaled = true
+closeBtn.Parent = header
+
+-- Content area
+local content = Instance.new("Frame")
+content.Size = UDim2.new(1, -16, 1, -64)
+content.Position = UDim2.new(0, 8, 0, 56)
+content.BackgroundTransparency = 1
+content.Parent = mainFrame
+
+local function makeButton(text, posY)
+    local b = Instance.new("TextButton")
+    b.Size = UDim2.new(1, 0, 0, 36)
+    b.Position = UDim2.new(0, 0, 0, posY)
+    b.BackgroundColor3 = Color3.fromRGB(255, 235, 170)
+    b.BorderSizePixel = 0
+    b.Text = text
+    b.TextColor3 = TEXT_COLOR
+    b.Font = Enum.Font.Gotham
+    b.TextScaled = true
+    b.Parent = content
+    return b
+end
+
+-- Buttons (tiếng Việt)
+local btnSpeedUp = makeButton("Tăng tốc (Speed +10)", 0)
+local btnSpeedReset = makeButton("Reset tốc độ", 44)
+local btnJumpUp = makeButton("Tăng nhảy (+20)", 88)
+local btnJumpReset = makeButton("Reset nhảy", 132)
+local btnBananaTheme = makeButton("Chủ đề: Banana (bật/tắt)", 176)
+
+-- Feedback label
+local feedback = Instance.new("TextLabel")
+feedback.Size = UDim2.new(1, 0, 0, 28)
+feedback.Position = UDim2.new(0, 0, 1, -32)
+feedback.BackgroundTransparency = 1
+feedback.TextColor3 = TEXT_COLOR
+feedback.Font = Enum.Font.Gotham
+feedback.TextScaled = true
+feedback.Text = "Sẵn sàng"
+feedback.Parent = mainFrame
+
+-- Small utility functions (chỉ tác động client-local)
+local function getHumanoid()
+    if not player.Character then return nil end
+    return player.Character:FindFirstChildOfClass("Humanoid")
+end
+
+-- Button behaviors
+btnSpeedUp.MouseButton1Click:Connect(function()
+    local humanoid = getHumanoid()
+    if humanoid then
+        humanoid.WalkSpeed = (humanoid.WalkSpeed or 16) + 10
+        feedback.Text = "Đã tăng tốc! (WalkSpeed = "..tostring(humanoid.WalkSpeed)..")"
+    else
+        feedback.Text = "Chưa có nhân vật."
+    end
+end)
+
+btnSpeedReset.MouseButton1Click:Connect(function()
+    local humanoid = getHumanoid()
+    if humanoid then
+        humanoid.WalkSpeed = 16
+        feedback.Text = "Đã reset tốc độ (WalkSpeed = 16)"
+    else
+        feedback.Text = "Chưa có nhân vật."
+    end
+end)
+
+btnJumpUp.MouseButton1Click:Connect(function()
+    local humanoid = getHumanoid()
+    if humanoid then
+        humanoid.JumpPower = (humanoid.JumpPower or 50) + 20
+        feedback.Text = "Đã tăng nhảy! (JumpPower = "..tostring(humanoid.JumpPower)..")"
+    else
+        feedback.Text = "Chưa có nhân vật."
+    end
+end)
+
+btnJumpReset.MouseButton1Click:Connect(function()
+    local humanoid = getHumanoid()
+    if humanoid then
+        humanoid.JumpPower = 50
+        feedback.Text = "Đã reset nhảy (JumpPower = 50)"
+    else
+        feedback.Text = "Chưa có nhân vật."
+    end
+end)
+
+-- Toggle banana theme (thay đổi giao diện)
+local bananaOn = true
+local function applyBananaTheme(on)
+    bananaOn = on
+    if on then
+        mainFrame.BackgroundColor3 = THEME_COLOR
+        header.BackgroundColor3 = ACCENT
+        for i, v in pairs(content:GetChildren()) do
+            if v:IsA("TextButton") then
+                v.BackgroundColor3 = Color3.fromRGB(255,235,170)
+                v.TextColor3 = TEXT_COLOR
+            end
+        end
+        feedback.Text = "Chủ đề Banana: Bật"
+    else
+        mainFrame.BackgroundColor3 = Color3.fromRGB(220,220,220)
+        header.BackgroundColor3 = Color3.fromRGB(100,100,100)
+        for i, v in pairs(content:GetChildren()) do
+            if v:IsA("TextButton") then
+                v.BackgroundColor3 = Color3.fromRGB(200,200,200)
+                v.TextColor3 = Color3.fromRGB(10,10,10)
+            end
+        end
+        feedback.Text = "Chủ đề Banana: Tắt"
+    end
+end
+
+btnBananaTheme.MouseButton1Click:Connect(function()
+    applyBananaTheme(not bananaOn)
+end)
+
+-- Close button
+closeBtn.MouseButton1Click:Connect(function()
+    mainFrame.Visible = false
+end)
+
+-- Draggable (kéo được)
+mainFrame.Active = true
+mainFrame.Draggable = true
+
+-- Ban đầu áp dụng theme
+applyBananaTheme(true)
+
+-- Thông báo khi nhân vật respawn -> reset feedback
+player.CharacterAdded:Connect(function()
+    wait(0.5)
+    feedback.Text = "Nhân vật sẵn sàng"
+end)

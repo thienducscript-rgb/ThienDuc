@@ -93,7 +93,7 @@ e.BorderColor3 = Color3.fromRGB(0, 0, 0)
 e.BorderSizePixel = 0
 e.Position = UDim2.new(0.87502408, 0, 0.0182926822, 0)
 e.Size = UDim2.new(0, 19, 0, 26)
-e.Image = "http://www.roblox.com/asset/?id=108610659764941"
+e.Image = "http://www.roblox.com/asset/?id=15511995461"
 e.MouseButton1Down:connect(
     function()
         game.CoreGui:FindFirstChild("ScreenGui_Chest").Enabled =
@@ -109,7 +109,7 @@ f.BorderColor3 = Color3.fromRGB(0, 0, 0)
 f.BorderSizePixel = 0
 f.Position = UDim2.new(0.0246521216, 0, 0.0482814126, 0)
 f.Size = UDim2.new(0, 23, 0, 18)
-f.Image = "rbxassetid://108610659764941"
+f.Image = "rbxassetid://16601446273"
 g.Name = "Avatra"
 g.Parent = b
 g.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -156,7 +156,7 @@ i.MouseButton1Down:connect(
         i.Text = "Join Discord"
     end
 )
-j.Name = "ThienDucFruits"
+j.Name = "NameHub"
 j.Parent = b
 j.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 j.BackgroundTransparency = 1.000
@@ -165,7 +165,7 @@ j.BorderSizePixel = 0
 j.Position = UDim2.new(0.0790036023, 0, -0.00593120279, 0)
 j.Size = UDim2.new(0, 65, 0, 35)
 j.Font = Enum.Font.SourceSansBold
-j.Text = "Hiru Hub"
+j.Text = "ThienDucFruits Hub"
 j.TextColor3 = Color3.fromRGB(255, 255, 255)
 j.TextSize = 14.000
 k.Name = "FPS"

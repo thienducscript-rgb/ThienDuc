@@ -3,11 +3,11 @@ loadstring(game:HttpGet(("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V
        local Window = MakeWindow({
          Hub = {
          Title = "ThienDuc Tổng Hợp",
-         Animation = "ThienDucupdate"
+         Animation = "TikTok:ThienDucScript"
          },
         Key = {
         KeySystem = true,
-        Title = "ThienDucNokey",
+        Title = "ThienDuckey",
         Description = "",
         KeyLink = "ThienDuc Tổng hợp đã update nên cho xin fl với tim nhé ",
         Keys = {"thienducdepzai"},
@@ -21,7 +21,7 @@ loadstring(game:HttpGet(("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V
   })
 
        MinimizeButton({
-       Image = "http://www.roblox.com/asset/?id=86749587185394",
+       Image = "http://www.roblox.com/asset/?id=108610659764941",
        Size = {60, 60},
        Color = Color3.fromRGB(10, 10, 10),
        Corner = true,
@@ -265,7 +265,7 @@ loadstring(game:HttpGet(("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V
   })
   
   AddButton(Tab2o, {
-     Name = "auto kc 99 đêm",
+     Name = "auto kim cương 99 đêm",
     Callback = function()
 	  getgenv().WebhookURL = ""
       getgenv().AutoFarm = true
